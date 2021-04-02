@@ -4,7 +4,7 @@
 {% block main %}
     <div class="row">
         <div class="col-md-6" style="margin: 0 auto;">
-            <form action="{% if pk != None %}{% url 'submit' pk %}{% else %}{% url 'submit' 0 %}{% endif %}">
+            <form action="{% if pk != None %}{% url 'safe_edit' pk %}{% else %}{% url 'submit' %}{% endif %}">
                 <div class="form-group">
                     <label for="title">Todo Title</label>
                     <input type="text" class="form-control" id="title" name="title" required

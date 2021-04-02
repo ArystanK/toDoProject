@@ -13,11 +13,8 @@ def all_todos(request):
     return render(request, 'list.html', context={'all_todos': ToDoItem.objects.all().order_by('-creation_date')})
 
 
-def add_new_todo(request, pk):
-    if not ToDoItem.objects.get(id=pk):
-        to_do_item = ToDoItem()
-    else:
-        to_do_item = ToDoItem(id=pk)
+def add_new_todo(request):
+    to_do_item = ToDoItem()
     to_do_item.title = request.GET['title']
     to_do_item.description = request.GET['description']
     to_do_item.priority = request.GET['priority']
@@ -52,3 +49,13 @@ def edit(request, pk):
         'priority': to_do_item.priority
     }
     return render(request, 'index.html', context=item_detail)
+
+
+def safe_edit(request, pk):
+    to_do_item = ToDoItem(id=pk)
+    to_do_item.title = request.GET['title']
+    to_do_item.description = request.GET['description']
+    to_do_item.priority = request.GET['priority']
+    to_do_item.creation_date = datetime.now()
+    to_do_item.save()
+    return all_todos(request)
