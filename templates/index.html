@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}To do app{% endblock %}
+{% block is_add %}active{% endblock %}
+{% block main %}
+    <div class="row">
+        <div class="col-md-6" style="margin: 0 auto;">
+            <form action="{% if pk != None %}{% url 'submit' pk %}{% else %}{% url 'submit' 0 %}{% endif %}">
+                <div class="form-group">
+                    <label for="title">Todo Title</label>
+                    <input type="text" class="form-control" id="title" name="title" required
+                           {% if title != None %}value="{{ title }}"{% endif %}>
+                </div>
+                <div class="form-group">
+                    <label for="description">Todo Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3"
+                              required>{% if description != None %}{{ description }}{% endif %}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Todo Priority</label>
+                    <input type="number" class="form-control" id="priority" name="priority" required
+                           {% if priority != None %}value="{{ priority }}"{% endif %}>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin: 0 auto;display: block;">Save</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

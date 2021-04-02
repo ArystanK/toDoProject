@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Todos{% endblock %}
+{% block is_list %}active{% endblock %}
+{% block main %}
+    {% for to_do_item in all_todos %}
+        <div class="row">
+            <div class="col-md-6" style="margin:0 auto;">
+                <div class="card container-fluid" style="margin-top: 1rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ to_do_item.title }} <strong
+                                style="color: green">{{ to_do_item.priority }}</strong></h5>
+                        <p class="card-text">{{ to_do_item.description }}</p>
+                        <p class="card-text">{{ to_do_item.creation_date }}</p>
+                        <a href="{% url 'delete' to_do_item.pk %}" class="btn btn-danger">Delete</a>
+                        <a href="{% url 'edit' to_do_item.pk %}" class="btn btn-warning">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
